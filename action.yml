@@ -1,6 +1,9 @@
 name: 'Publish Test Results'
 description: 'Publish Test Results file to Actions.'
 inputs:
+  ptr-secret: # id of input
+    description: 'secret set by Github App'
+    required: true
   who-to-greet:  # id of input
     description: 'Who to greet'
     required: true
