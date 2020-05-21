@@ -34,7 +34,7 @@ async function run() {
   try {
     // Read inputs
     const nameToGreet = core.getInput('who-to-greet');
-    var githubToken = core.getInput('github-token');
+    var githubToken = core.getInput('github-secret');
     githubToken = githubToken.toString();
     const secret = core.getInput('ptr-secret');
     console.log(`GitHub Secret : ${githubToken.length} ${secret.length}`);
