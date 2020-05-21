@@ -18,7 +18,9 @@ function getTestRun(secret) {
       });
 }
 
-function sendDispatchEvent(octokit ,token) {
+function sendDispatchEvent(token) {
+  const octokit = new github.GitHub(token);
+
   octokit.repos.createDispatchEvent({
     owner,
     repo,
@@ -31,11 +33,9 @@ try {
     const nameToGreet = core.getInput('who-to-greet');
     const githubToken = core.getInput('github-token');
     const secret = core.getInput('ptr-secret');
+    console.log(`Gitub Secret : ${githubToken}`);
 
-    // Setup Octokit client
-    const octokit = new github.GitHub(githubToken);
-
-    var dispatchResponse = sendDispatchEvent(octokit ,githubToken);
+    var dispatchResponse = sendDispatchEvent(githubToken);
     console.log(`REPO_DISPATCH : \n ${dispatchResponse}`)
 
     var testRun = getTestRun(secret);
