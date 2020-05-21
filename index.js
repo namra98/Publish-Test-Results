@@ -29,7 +29,7 @@ function sendDispatchEvent(octokit ,token) {
 try {
     // Read inputs
     const nameToGreet = core.getInput('who-to-greet');
-    const githubToken = core.getInput('GITHUB_TOKEN');
+    const githubToken = core.getInput('github-token');
     const secret = core.getInput('ptr-secret');
 
     // Setup Octokit client
@@ -37,7 +37,7 @@ try {
 
     var dispatchResponse = sendDispatchEvent(octokit ,githubToken);
     console.log(`REPO_DISPATCH : \n ${dispatchResponse}`)
-    
+
     var testRun = getTestRun(secret);
     console.log(`PTR Secret\n ${testRun}`)
 } catch (error) {
