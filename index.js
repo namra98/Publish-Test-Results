@@ -20,7 +20,7 @@ function getTestRun(secret) {
 
 function sendDispatchEvent(token) {
   console.log("ss");
-  console.log(typeof token);
+  console.log(typeof token === 'string');
   const octokit = new github.GitHub(token);
 
   octokit.repos.createDispatchEvent({
@@ -34,7 +34,8 @@ async function run() {
   try {
     // Read inputs
     const nameToGreet = core.getInput('who-to-greet');
-    const githubToken = core.getInput('github-token');
+    var githubToken = core.getInput('github-token');
+    githubToken = githubToken.toString();
     const secret = core.getInput('ptr-secret');
     console.log(`GitHub Secret : ${githubToken.length}`);
 
