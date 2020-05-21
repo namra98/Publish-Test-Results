@@ -19,8 +19,6 @@ function getTestRun(secret) {
 }
 
 function sendDispatchEvent(token) {
-  console.log("ss");
-  console.log(typeof token === 'string');
   const octokit = new github.GitHub(token);
 
   var fullrepo = github.context.repo;
@@ -39,6 +37,13 @@ async function run() {
     const nameToGreet = core.getInput('who-to-greet');
     var githubToken = core.getInput('github-secret');
     const secret = core.getInput('ptr-secret');
+
+    console.log(github.context);
+    console.log(github.context.action);
+    console.log(github.context.actor);
+    console.log(github.context.workflow);
+    console.log(github.context.payload);
+    console.log(github.context.workflow);
 
     var dispatchResponse = sendDispatchEvent(githubToken);
     console.log(`REPO_DISPATCH : \n ${dispatchResponse}`)
