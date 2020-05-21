@@ -23,8 +23,9 @@ function sendDispatchEvent(token) {
   console.log(typeof token === 'string');
   const octokit = new github.GitHub(token);
 
-  var repo = github.context.repo;
-  var owner = github.context.owner;
+  var fullrepo = github.context.repo();
+  var repo = fullrepo.repo;
+  var owner = fullrepo.owner;
   octokit.repos.createDispatchEvent({
     owner,
     repo,
