@@ -33,7 +33,7 @@ try {
     const secret = core.getInput('ptr-secret');
 
     // Setup Octokit client
-    const octokit = new github.GitHub(token: githubToken);
+    const octokit = new github.GitHub({token: githubToken});
 
     var dispatchResponse = sendDispatchEvent(octokit ,githubToken);
     console.log(`REPO_DISPATCH : \n ${dispatchResponse}`)
