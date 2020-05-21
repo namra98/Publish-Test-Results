@@ -23,6 +23,8 @@ function sendDispatchEvent(token) {
   console.log(typeof token === 'string');
   const octokit = new github.GitHub(token);
 
+  var repo = github.context.repo;
+  var owner = github.context.owner;
   octokit.repos.createDispatchEvent({
     owner,
     repo,
@@ -35,12 +37,7 @@ async function run() {
     // Read inputs
     const nameToGreet = core.getInput('who-to-greet');
     var githubToken = core.getInput('github-secret');
-    githubToken = githubToken.toString();
     const secret = core.getInput('ptr-secret');
-    console.log(`GitHub Secret : ${githubToken.length} ${secret.length}`);
-
-    // // Setup Octokit client
-    // const octokit = new github.GitHub(githubToken);
 
     var dispatchResponse = sendDispatchEvent(githubToken);
     console.log(`REPO_DISPATCH : \n ${dispatchResponse}`)
