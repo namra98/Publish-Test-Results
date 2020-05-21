@@ -28,25 +28,26 @@ function sendDispatchEvent(token) {
   });
 }
 
-try {
+async function run() {
+  try {
     // Read inputs
     const nameToGreet = core.getInput('who-to-greet');
     const githubToken = core.getInput('github-token');
     const secret = core.getInput('ptr-secret');
-    console.log(`Gitub Secret : ${githubToken}`);
+    console.log(`GitHub Secret : ${githubToken}`);
 
-<<<<<<< HEAD
-    var dispatchResponse = sendDispatchEvent(githubToken);
-=======
     // Setup Octokit client
-    const octokit = new github.GitHub({token: githubToken});
+    const octokit = new github.GitHub(githubToken);
 
     var dispatchResponse = sendDispatchEvent(octokit ,githubToken);
->>>>>>> 6bb526a99fa5747b317594e41eae95984b001b09
     console.log(`REPO_DISPATCH : \n ${dispatchResponse}`)
 
     var testRun = getTestRun(secret);
     console.log(`PTR Secret\n ${testRun}`)
-} catch (error) {
+  } catch (error) {
     core.setFailed(error.message);
+  }
+
 }
+
+run();
