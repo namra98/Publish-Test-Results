@@ -20,6 +20,7 @@
   "dependencies": {
     "@actions/core": "^1.2.4",
     "@actions/github": "^2.2.0",
+    "@types/request": "^2.48.5",
     "request": "^2.88.2"
   },
   "devDependencies": {

@@ -18,14 +18,26 @@ function getTestRun(secret) {
       });
 }
 
+function sendDispatchEvent(octokit ,token) {
+  octokit.repos.createDispatchEvent({
+    owner,
+    repo,
+    event_type: 'test'
+  });
+}
 
 try {
+    // Read inputs
     const nameToGreet = core.getInput('who-to-greet');
-    console.log(`Hello ${nameToGreet}!`);
-    const time = (new Date()).toTimeString();
-    core.setOutput("time", time);
+    const githubToken = core.getInput('GITHUB_TOKEN');
     const secret = core.getInput('ptr-secret');
-    console.log(`PTR Secret\n ${secret}`)
+
+    // Setup Octokit client
+    const octokit = new github.GitHub(myToken);
+
+    var dispatchResponse = sendDispatchEvent(octokit ,githubToken);
+    console.log(`REPO_DISPATCH : \n ${dispatchResponse}`)
+    
     var testRun = getTestRun(secret);
     console.log(`PTR Secret\n ${testRun}`)
 } catch (error) {

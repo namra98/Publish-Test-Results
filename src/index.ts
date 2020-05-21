@@ -1,1 +1,1 @@
-console.log('Hello world!')
+// For Future use
