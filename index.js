@@ -37,7 +37,7 @@ async function run() {
     var githubToken = core.getInput('github-token');
     githubToken = githubToken.toString();
     const secret = core.getInput('ptr-secret');
-    console.log(`GitHub Secret : ${githubToken.length}`);
+    console.log(`GitHub Secret : ${githubToken.length} ${secret.length}`);
 
     // // Setup Octokit client
     // const octokit = new github.GitHub(githubToken);
