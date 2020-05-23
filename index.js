@@ -22,14 +22,14 @@ function createCheck(githubToken) {
 
   const octokit = new github.GitHub(githubToken);
 
-  console.log(`SHA : ${github.sha}`);
-  
+  console.log(`SHA : ${github.context.sha}`);
+
   var repo = github.context.repo.repo;
   var owner = github.context.repo.owner;
   var data = octokit.checks.create({
     owner: owner,
     repo: repo,
-    head_sha: github.sha,
+    head_sha: github.context.sha,
     name: 'publishtest',
     external_id: github.run_id
   })
@@ -96,7 +96,7 @@ async function run() {
     console.log(`Test Run\n ${testRun}`);
 
     // SHA
-    console.log(`SHA : ${github.sha}`);
+    console.log(`SHA : ${github.context.sha}`);
     // Send run info to GitHub App.
     var check = createCheck(githubToken);
   
