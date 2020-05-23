@@ -22,6 +22,8 @@ function createCheck(githubToken) {
 
   const octokit = new github.GitHub(githubToken);
 
+  console.log(`SHA : ${github.sha}`);
+  
   var repo = github.context.repo.repo;
   var owner = github.context.repo.owner;
   var data = octokit.checks.create({
@@ -93,6 +95,8 @@ async function run() {
     var testRun = getTestRun(secret);
     console.log(`Test Run\n ${testRun}`);
 
+    // SHA
+    console.log(`SHA : ${github.sha}`);
     // Send run info to GitHub App.
     var check = createCheck(githubToken);
   
