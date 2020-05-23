@@ -37,7 +37,8 @@ function createCheck(githubToken) {
   const { data } = request(`https://api.github.com/repos/${github.context.repo.owner}/${github.context.repo.repo}/check-runs`, {
     method: 'POST',
     headers,
-    body
+    body,
+    json: true
   })
 
   console.log(`Created Check Run : ${data}`);
