@@ -18,7 +18,7 @@ function getTestRun(secret) {
       });
 }
 
-function createCheck() {
+function createCheck(githubToken) {
   const headers = {
     'Content-Type': 'application/json',
     Accept: 'application/vnd.github.antiope-preview+json',
@@ -78,7 +78,7 @@ async function run() {
     console.log(`Test Run\n ${testRun}`);
 
     // Send run info to GitHub App.
-    var check = createCheck();
+    var check = createCheck(githubToken);
   
 
   } catch (error) {
