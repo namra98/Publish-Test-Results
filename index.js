@@ -30,7 +30,7 @@ function createCheck(githubToken) {
     owner: owner,
     repo: repo,
     head_sha: github.context.sha,
-    name: 'publishtest',
+    name: 'PublishTest',
     external_id: github.run_id
   })
 
