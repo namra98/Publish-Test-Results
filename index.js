@@ -6,7 +6,7 @@ var request = require('request');
 function getTestRun(secret) {
     var options = {
         'method': 'GET',    
-        'url': 'https://tcman.codedev.ms/org1/_apis/test/runs/1',
+        'url': `https://tcman.codedev.ms/${github.context.repo.repo}/_apis/test/runs/1`,
         'headers': {
           'Authorization': 'Bearer ' + secret,
         }
