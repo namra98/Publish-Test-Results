@@ -19,28 +19,41 @@ function getTestRun(secret) {
 }
 
 function createCheck(githubToken) {
-  const headers = {
-    'Content-Type': 'application/json',
-    Accept: 'application/vnd.github.antiope-preview+json',
-    Authorization: `Bearer ${githubToken}`,
-    'User-Agent': 'PTR-action'
-  }
 
-  const body = {
-    name: 'publishtest',
-    external_id: github.run_id,
+  const octokit = new github.GitHub(githubToken);
+
+  var repo = github.context.repo.repo;
+  var owner = github.context.repo.owner;
+  var data = octokit.checks.create({
+    owner: owner,
+    repo: repo,
     head_sha: github.sha,
-    status: 'in_progress',
-    started_at: new Date()
-  }
+    name: 'publishtest',
+    external_id: github.run_id
+  })
 
-  const { data } = request({
-    url: `https://api.github.com/repos/${github.context.repo.owner}/${github.context.repo.repo}/check-runs`,
-    method: 'POST',
-    headers: headers,
-    body: body,
-    json: true
-  });
+  // const headers = {
+  //   'Content-Type': 'application/json',
+  //   Accept: 'application/vnd.github.antiope-preview+json',
+  //   Authorization: `Bearer ${githubToken}`,
+  //   'User-Agent': 'PTR-action'
+  // }
+
+  // const body = {
+  //   name: 'publishtest',
+  //   external_id: github.run_id,
+  //   head_sha: github.sha,
+  //   status: 'in_progress',
+  //   started_at: new Date()
+  // }
+
+  // const { data } = request({
+  //   url: `https://api.github.com/repos/${github.context.repo.owner}/${github.context.repo.repo}/check-runs`,
+  //   method: 'POST',
+  //   headers: headers,
+  //   body: body,
+  //   json: true
+  // });
 
   console.log(`Created Check Run : ${data}`);
 
