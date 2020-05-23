@@ -28,7 +28,8 @@ function createCheck(githubToken) {
 
   const body = {
     name: 'publishtest',
-    head_sha: GITHUB_SHA,
+    external_id: github.run_id,
+    head_sha: github.sha,
     status: 'in_progress',
     started_at: new Date()
   }
