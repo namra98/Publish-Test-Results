@@ -34,12 +34,13 @@ function createCheck(githubToken) {
     started_at: new Date()
   }
 
-  const { data } = request(`https://api.github.com/repos/${github.context.repo.owner}/${github.context.repo.repo}/check-runs`, {
+  const { data } = request({
+    url: `https://api.github.com/repos/${github.context.repo.owner}/${github.context.repo.repo}/check-runs`,
     method: 'POST',
-    headers,
-    body,
+    headers: headers,
+    body: body,
     json: true
-  })
+  });
 
   console.log(`Created Check Run : ${data}`);
 
