@@ -22,7 +22,7 @@ function createCheck() {
   const headers = {
     'Content-Type': 'application/json',
     Accept: 'application/vnd.github.antiope-preview+json',
-    Authorization: `Bearer ${GITHUB_TOKEN}`,
+    Authorization: `Bearer ${githubToken}`,
     'User-Agent': 'PTR-action'
   }
 
