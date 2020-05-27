@@ -92,7 +92,7 @@ async function getCheckRunId(octokit) {
     owner: owner,
     repo: repo,
     ref: github.context.ref,
-    check_name: 'Publish Test Results'
+    check_name: github.context.workflow
   });
   
   var check_run_id = checks.data.check_runs[0].id;
@@ -118,7 +118,7 @@ async function run() {
     // Get Test Run using Token.
     // var testRun = publishTestRuns(secret);
     // console.log(`Test Run ${testRun}`);
-    // console.log(github.run_id);
+    console.log(github.context.workflow);
 
     
   
