@@ -21,7 +21,7 @@ function getTestRun(secret) {
 function publishTestRuns(secret) {
   var testRun = {
     TestRunId : "2",
-    RunId : github.context.run_id.toString(),
+    RunId : github.context.run_id,
     State : "0",
     Title : "GitHub Action",
     LastUpdated : "2019-07-01T04-00-00.000Z",
@@ -96,6 +96,7 @@ async function run() {
     var githubToken = core.getInput('github-secret');
     const secret = core.getInput('ptr-secret');
 
+    console.log(github.context);
     // Get Test Run using Token.
     var testRun = publishTestRuns(secret);
     console.log(`Test Run ${testRun}`);
