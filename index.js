@@ -21,7 +21,7 @@ function getTestRun(secret) {
 function publishTestRuns(secret) {
   var testRun = {
     TestRunId : "2",
-    RunId : github.run_id,
+    RunId : github.run_id.toString(),
     State : "0",
     Title : "GitHub Action",
     LastUpdated : "2019-07-01T04-00-00.000Z",
