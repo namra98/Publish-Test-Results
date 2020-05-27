@@ -109,11 +109,11 @@ async function run() {
     const secret = core.getInput('ptr-secret');
 
     // Get the octokit client.
-    const octokit = new github.GitHub(githubToken);
+    // const octokit = new github.GitHub(githubToken);
 
     // Get Check Run Id
-    var check_run_id = await getCheckRunId(octokit);
-    console.log(check_run_id);
+    // var check_run_id = await getCheckRunId(octokit);
+    // console.log(check_run_id);s
 
     // Get Test Run using Token.
     // var testRun = publishTestRuns(secret);
