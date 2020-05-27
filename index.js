@@ -54,14 +54,10 @@ function publishTestRuns(secret) {
     body: testRun
   }, function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log(error);
-      console.log(response);
       console.log(body);
       return body;
     }
     else {
-      console.log(error);
-      console.log(response);
       console.log(body);
       return response;
     }
