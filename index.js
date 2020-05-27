@@ -50,6 +50,9 @@ function publishTestRuns(secret) {
   request({
     url: `https://tcman.codedev.ms/${github.context.repo.repo}/_apis/test/runs?api-version=1.0`,
     method: "POST",
+    headers: {
+      'Authorization':'Bearer ' + secret,
+    },
     json: true,
     body: testRun
   }, function(error, response, body) {
