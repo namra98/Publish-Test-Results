@@ -21,7 +21,7 @@ function getTestRun(secret) {
 function publishTestRuns(secret) {
   var testRun = {
     TestRunId : "2",
-    RunId : github.run_id.toString(),
+    RunId : github.context.run_id.toString(),
     State : "0",
     Title : "GitHub Action",
     LastUpdated : "2019-07-01T04-00-00.000Z",
@@ -81,7 +81,7 @@ function createCheck(githubToken) {
     repo: repo,
     head_sha: github.context.sha,
     name: 'PublishTest',
-    external_id: github.run_id
+    external_id: github.context.run_id
   });
 
   console.log(`Created Check Run : ${data}`);
