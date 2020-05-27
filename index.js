@@ -69,9 +69,6 @@ function publishTestRuns(secret) {
 }
 
 function createCheck(githubToken) {
-
-  const octokit = new github.GitHub(githubToken);
-
   console.log(`SHA : ${github.context.sha}`);
 
   var repo = github.context.repo.repo;
@@ -88,6 +85,20 @@ function createCheck(githubToken) {
 
 }
 
+function getCheckRunId(octokit) {
+  var repo = github.context.repo.repo;
+  var owner = github.context.repo.owner;
+  var checks = octokit.checks.listForRef({
+    owner: owner,
+    repo: repo,
+    ref: github.context.ref,
+    check_name: 'Publish Test Results'
+  });
+  
+  console.log(checks);
+  return checks;
+}
+
 
 async function run() {
   try {
@@ -96,15 +107,19 @@ async function run() {
     var githubToken = core.getInput('github-secret');
     const secret = core.getInput('ptr-secret');
 
-    console.log(github);
-    console.log(process.env.GITHUB_RUN_ID);
+    // Get the octokit client.
+    const octokit = new github.GitHub(githubToken);
+
+    // Get Check Run Id
+    var check_run_id = getCheckRunId(octokit);
+    console.log(check_run_id);
+
     // Get Test Run using Token.
     var testRun = publishTestRuns(secret);
     console.log(`Test Run ${testRun}`);
     console.log(github.run_id);
 
-    // // Send run info to GitHub App.
-    // var check = createCheck(githubToken);
+    
   
   } catch (error) {
     core.setFailed(error.message);
