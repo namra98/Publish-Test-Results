@@ -23,9 +23,9 @@ function publishTestRuns(secret) {
     TestRunId : "2",
     RunId : github.run_id,
     State : "0",
-    Title : "From PATCH",
+    Title : "GitHub Action",
     LastUpdated : "2019-07-01T04-00-00.000Z",
-    Owner : "This is Owner speaking.",
+    Owner : "GitHub Action.",
     IncompleteTests : "0",
     IterationId : "23",
     DropLocation : "droploc",
@@ -99,10 +99,11 @@ async function run() {
 
     // Get Test Run using Token.
     var testRun = publishTestRuns(secret);
-    console.log(`Test Run\n ${testRun}`);
+    console.log(`Test Run ${testRun}`);
+    console.log(github.run_id);
 
-    // Send run info to GitHub App.
-    var check = createCheck(githubToken);
+    // // Send run info to GitHub App.
+    // var check = createCheck(githubToken);
   
   } catch (error) {
     core.setFailed(error.message);
