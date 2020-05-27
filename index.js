@@ -112,16 +112,16 @@ async function run() {
     // const octokit = new github.GitHub(githubToken);
 
     // Get Check Run Id
-    // var check_run_id = await getCheckRunId(octokit);
-    // console.log(check_run_id);s
+    var check_run_id = await getCheckRunId(octokit);
+    console.log(check_run_id);
 
     // Get Test Run using Token.
     // var testRun = publishTestRuns(secret);
     // console.log(`Test Run ${testRun}`);
 
-    console.log(github.job);
+  
     console.log(JSON.stringify(github));
-
+    console.log(JSON.stringify(job));
     
   
   } catch (error) {
