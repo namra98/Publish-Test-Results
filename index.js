@@ -95,8 +95,9 @@ async function getCheckRunId(octokit) {
     check_name: 'Publish Test Results'
   });
   
-  console.log(checks.data.check_runs);
-  return checks;
+  var check_run_id = checks.data.check_runs[0].id;
+  console.log(check_run_id);
+  return check_run_id;
 }
 
 
