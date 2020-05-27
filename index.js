@@ -81,7 +81,10 @@ function createCheck(githubToken) {
     external_id: github.context.run_id
   });
 
-  console.log(`Created Check Run : ${data}`);
+  data.then(function(result) {
+    console.log(result) // "Some User token"
+    return result;
+ })
 
 }
 
