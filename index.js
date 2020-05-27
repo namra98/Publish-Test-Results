@@ -118,7 +118,9 @@ async function run() {
     // Get Test Run using Token.
     // var testRun = publishTestRuns(secret);
     // console.log(`Test Run ${testRun}`);
-    console.log(github.context.workflow);
+
+    console.log(github.job);
+    console.log(JSON.stringify(github));
 
     
   
