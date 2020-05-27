@@ -18,10 +18,10 @@ function getTestRun(secret) {
       });
 }
 
-function publishTestRuns(secret) {
+function publishTestRuns(secret, check_run_id) {
   var testRun = {
     TestRunId : "2",
-    RunId : github.run_id,
+    RunId : check_run_id,
     State : "0",
     Title : "GitHub Action",
     LastUpdated : "2019-07-01T04-00-00.000Z",
@@ -80,9 +80,7 @@ function createCheck(githubToken) {
     name: 'PublishTest',
     external_id: github.context.run_id
   });
-
   return data;
-
 }
 
 async function getCheckRunId(octokit) {
@@ -92,9 +90,7 @@ async function getCheckRunId(octokit) {
     owner: owner,
     repo: repo,
     ref: github.context.ref
-    // check_name: github.context.workflow
   });
-  console.log(checks);
   var check_run_id = checks.data.check_runs[0].id;
   console.log(check_run_id);
   return check_run_id;
@@ -113,15 +109,11 @@ async function run() {
 
     // Get Check Run Id
     var check_run_id = await getCheckRunId(octokit);
-    console.log(check_run_id);
 
     // Get Test Run using Token.
-    // var testRun = publishTestRuns(secret);
-    // console.log(`Test Run ${testRun}`);
+    var testRun = publishTestRuns(secret, check_run_id);
+    console.log(`Test Run ${testRun}`);
 
-
-    
-  
   } catch (error) {
     core.setFailed(error.message);
   }
