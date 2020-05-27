@@ -91,10 +91,10 @@ async function getCheckRunId(octokit) {
   var checks = await octokit.checks.listForRef({
     owner: owner,
     repo: repo,
-    ref: github.context.ref,
-    check_name: github.context.workflow
+    ref: github.context.ref
+    // check_name: github.context.workflow
   });
-  
+  console.log(checks);
   var check_run_id = checks.data.check_runs[0].id;
   console.log(check_run_id);
   return check_run_id;
@@ -109,7 +109,7 @@ async function run() {
     const secret = core.getInput('ptr-secret');
 
     // Get the octokit client.
-    // const octokit = new github.GitHub(githubToken);
+    const octokit = new github.GitHub(githubToken);
 
     // Get Check Run Id
     var check_run_id = await getCheckRunId(octokit);
@@ -119,9 +119,7 @@ async function run() {
     // var testRun = publishTestRuns(secret);
     // console.log(`Test Run ${testRun}`);
 
-  
-    console.log(JSON.stringify(github));
-    console.log(JSON.stringify(job));
+
     
   
   } catch (error) {
