@@ -81,17 +81,14 @@ function createCheck(githubToken) {
     external_id: github.context.run_id
   });
 
-  data.then(function(result) {
-    console.log(result) // "Some User token"
-    return result;
- })
+  return data;
 
 }
 
-function getCheckRunId(octokit) {
+async function getCheckRunId(octokit) {
   var repo = github.context.repo.repo;
   var owner = github.context.repo.owner;
-  var checks = octokit.checks.listForRef({
+  var checks = await octokit.checks.listForRef({
     owner: owner,
     repo: repo,
     ref: github.context.ref,
@@ -114,13 +111,13 @@ async function run() {
     const octokit = new github.GitHub(githubToken);
 
     // Get Check Run Id
-    var check_run_id = getCheckRunId(octokit);
+    var check_run_id = await getCheckRunId(octokit);
     console.log(check_run_id);
 
     // Get Test Run using Token.
-    var testRun = publishTestRuns(secret);
-    console.log(`Test Run ${testRun}`);
-    console.log(github.run_id);
+    // var testRun = publishTestRuns(secret);
+    // console.log(`Test Run ${testRun}`);
+    // console.log(github.run_id);
 
     
   
