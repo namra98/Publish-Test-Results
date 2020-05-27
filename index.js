@@ -18,6 +18,51 @@ function getTestRun(secret) {
       });
 }
 
+function publishTestRuns(secret) {
+  var testRun = {
+    TestRunId : "2",
+    RunId : github.run_id,
+    State : "0",
+    Title : "From PATCH",
+    LastUpdated : "2019-07-01T04-00-00.000Z",
+    Owner : "This is Owner speaking.",
+    IncompleteTests : "0",
+    IterationId : "23",
+    DropLocation : "droploc",
+    ErrorMessage : "Error Message",
+    StartDate : "2018-08-26T12:58:34.860",
+    CompleteDate : "2018-08-26T12:58:34.860",
+    Controller : "controller",
+    PostProcessState : "0",
+    Revision : "3",
+    LastUpdatedBy : "85c65d89-072a-4923-8360-497a4053153c",
+    Type : "0",
+    TestEnvironmentId : "85c65d89-072a-4923-8360-497a4053153c",
+    Version : "1",
+    Comment : "No Comments.",
+    TotalTests : "10",
+    PassedTests : "9",
+    NotApplicableTests : "0",
+    UnanalyzedTests : "1",
+    CreationDate : "2018-08-26T12:58:34.860"
+  } 
+
+  request({
+    url: `https://tcman.codedev.ms/${github.context.repo.repo}/_apis/test/runs?api-version=1.0`,
+    method: "POST",
+    json: true,
+    body: testRun
+  }, function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      return body;
+    }
+    else {
+      return response;
+    }
+  }
+  );
+}
+
 function createCheck(githubToken) {
 
   const octokit = new github.GitHub(githubToken);
@@ -32,47 +77,12 @@ function createCheck(githubToken) {
     head_sha: github.context.sha,
     name: 'PublishTest',
     external_id: github.run_id
-  })
-
-  // const headers = {
-  //   'Content-Type': 'application/json',
-  //   Accept: 'application/vnd.github.antiope-preview+json',
-  //   Authorization: `Bearer ${githubToken}`,
-  //   'User-Agent': 'PTR-action'
-  // }
-
-  // const body = {
-  //   name: 'publishtest',
-  //   external_id: github.run_id,
-  //   head_sha: github.sha,
-  //   status: 'in_progress',
-  //   started_at: new Date()
-  // }
-
-  // const { data } = request({
-  //   url: `https://api.github.com/repos/${github.context.repo.owner}/${github.context.repo.repo}/check-runs`,
-  //   method: 'POST',
-  //   headers: headers,
-  //   body: body,
-  //   json: true
-  // });
+  });
 
   console.log(`Created Check Run : ${data}`);
 
 }
 
-// function sendDispatchEvent(token) {
-//   const octokit = new github.GitHub(token);
-
-//   var fullrepo = github.context.repo;
-//   var repo = fullrepo.repo;
-//   var owner = fullrepo.owner;
-//   octokit.repos.createDispatchEvent({
-//     owner,
-//     repo,
-//     event_type: 'test'
-//   });
-// }
 
 async function run() {
   try {
@@ -81,26 +91,13 @@ async function run() {
     var githubToken = core.getInput('github-secret');
     const secret = core.getInput('ptr-secret');
 
-    console.log(github.context);
-    console.log(github.context.action);
-    console.log(github.context.actor);
-    console.log(github.context.workflow);
-    console.log(github.context.payload);
-    console.log(github.context.workflow);
-
-    // var dispatchResponse = sendDispatchEvent(githubToken);
-    // console.log(`REPO_DISPATCH : \n ${dispatchResponse}`)
-
     // Get Test Run using Token.
-    var testRun = getTestRun(secret);
+    var testRun = publishTestRuns(secret);
     console.log(`Test Run\n ${testRun}`);
 
-    // SHA
-    console.log(`SHA : ${github.context.sha}`);
     // Send run info to GitHub App.
     var check = createCheck(githubToken);
   
-
   } catch (error) {
     core.setFailed(error.message);
   }
