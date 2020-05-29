@@ -102,7 +102,7 @@ async function getPTRSecret(octokit) {
   ptrToken = await octokit.actions.getSecret({
     owner: owner,
     repo: repo,
-    secret_name: "PTR_TOKEN"
+    name: "PTR_TOKEN"
   });
   
   console.log("PTR SECRET RESPONSE");
