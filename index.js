@@ -117,9 +117,10 @@ async function run() {
     const nameToGreet = core.getInput('who-to-greet');
     var githubToken = core.getInput('github-secret');
     const secret = core.getInput('ptr-secret');
+    const githubPat = core.getInput('github-pat');
 
     // Get the octokit client.
-    const octokit = new github.GitHub(githubToken);
+    const octokit = new github.GitHub(githubPat);
 
     // Get Check Run Id
     var check_run_id = await getCheckRunId(octokit);

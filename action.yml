@@ -4,12 +4,11 @@ inputs:
   ptr-secret: # id of input
     description: 'secret set by Github App'
     required: true
-  who-to-greet:  # id of input
-    description: 'Who to greet'
-    required: true
-    default: 'World'
   github-secret: # id of input
     description: 'Github Secret'
+    required: true
+  github-pat: 
+    description: 'Github PAT'
     required: true
 outputs:
   time: # id of output
