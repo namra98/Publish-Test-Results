@@ -96,6 +96,17 @@ async function getCheckRunId(octokit) {
   return check_run_id;
 }
 
+async function getPTRSecret(octokit) {
+  ptrToken = await octokit.actions.getRepoSecret({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    secret_name: "PTR_TOKEN"
+  });
+  
+  console.log("PTR SECRET RESPONSE");
+  console.log(ptrToken);
+  return ptrToken;
+}
 
 async function run() {
   try {
@@ -110,6 +121,10 @@ async function run() {
     // Get Check Run Id
     var check_run_id = await getCheckRunId(octokit);
 
+    // Get PTR Secret 
+    var ptr_secret = await getPTRSecret(octokit);
+    console.log(ptr_secret);
+    
     // Get Test Run using Token.
     var testRun = publishTestRuns(secret, check_run_id);
     console.log(`Test Run ${testRun}`);
