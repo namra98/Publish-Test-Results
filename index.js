@@ -99,10 +99,11 @@ async function getCheckRunId(octokit) {
 async function getPTRSecret(octokit) {
   var repo = github.context.repo.repo;
   var owner = github.context.repo.owner;  
+  var secretname = "PTR_TOKEN";
   ptrToken = await octokit.actions.getSecret({
     owner: owner,
     repo: repo,
-    name: "PTR_TOKEN"
+    name: secretname
   });
   
   console.log("PTR SECRET RESPONSE");
