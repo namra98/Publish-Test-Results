@@ -68,21 +68,6 @@ function publishTestRuns(secret, check_run_id) {
   );
 }
 
-function createCheck(githubToken) {
-  console.log(`SHA : ${github.context.sha}`);
-
-  var repo = github.context.repo.repo;
-  var owner = github.context.repo.owner;
-  var data = octokit.checks.create({
-    owner: owner,
-    repo: repo,
-    head_sha: github.context.sha,
-    name: 'PublishTest',
-    external_id: github.context.run_id
-  });
-  return data;
-}
-
 async function getCheckRunId(octokit) {
   var repo = github.context.repo.repo;
   var owner = github.context.repo.owner;
@@ -96,19 +81,30 @@ async function getCheckRunId(octokit) {
   return check_run_id;
 }
 
-async function getPTRSecret(octokit) {
-  var repo = github.context.repo.repo;
-  var owner = github.context.repo.owner;  
-  var secretname = "PTR_TOKEN";
-  ptrToken = await octokit.actions.getSecret({
-    owner: owner,
-    repo: repo,
-    name: secretname
-  });
+function getTcmToken() {
+  var body = {
+    repository: {
+      name: github.context.repo.repo
+    }
+  }
+
+  request({
+    url: `http://localhost:3000/token`,
+    method: "POST",
+    json: true,
+    body: body
+  }, function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body);
+      return body;
+    }
+    else {
+      console.log(body);
+      return response;
+    }
+  }
+  );
   
-  console.log("PTR SECRET RESPONSE");
-  console.log(ptrToken);
-  return ptrToken;
 }
 
 async function run() {
@@ -119,18 +115,17 @@ async function run() {
     const secret = core.getInput('ptr-secret');
     const githubPat = core.getInput('github-pat');
 
+    // Get token for Org bt calling GitHub App.
+    const TcmToken = await getTcmToken();
+
     // Get the octokit client.
     const octokit = new github.GitHub(githubPat);
 
     // Get Check Run Id
     var check_run_id = await getCheckRunId(octokit);
 
-    // Get PTR Secret 
-    var ptr_secret = await getPTRSecret(octokit);
-    console.log(ptr_secret);
-
     // Get Test Run using Token.
-    var testRun = publishTestRuns(secret, check_run_id);
+    var testRun = publishTestRuns(TcmToken, check_run_id);
     console.log(`Test Run ${testRun}`);
 
   } catch (error) {
