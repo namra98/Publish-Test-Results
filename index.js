@@ -57,12 +57,12 @@ function publishTestRuns(secret, check_run_id) {
     body: testRun
   }, function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log(body);
+      console.log("No Error", body);
       return body;
     }
     else {
-      console.log(body);
-      return response;
+      console.log("Error", body);
+      return body;
     }
   }
   );
@@ -95,11 +95,11 @@ function getTcmToken() {
     body: body
   }, function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log(body);
+      console.log("Error", body);
       return body;
     }
     else {
-      console.log(body);
+      console.log("Error", body);
       return response;
     }
   }
