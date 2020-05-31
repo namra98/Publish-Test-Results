@@ -102,7 +102,7 @@ function getTcmToken() {
     }
     else {
       console.log("Error", body);
-      return response;
+      return body;
     }
   }
   );
