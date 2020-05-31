@@ -47,6 +47,8 @@ function publishTestRuns(secret, check_run_id) {
     CreationDate : "2018-08-26T12:58:34.860"
   } 
 
+  console.log(secret);
+  console.log(github.context.repo.repo);
   request({
     url: `https://tcman.codedev.ms/${github.context.repo.repo}/_apis/test/runs?api-version=1.0`,
     method: "POST",
@@ -95,7 +97,7 @@ function getTcmToken() {
     body: body
   }, function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log("Error", body);
+      console.log("done", body);
       return body;
     }
     else {
@@ -119,7 +121,7 @@ async function run() {
     const TcmToken = await getTcmToken();
 
     // Get the octokit client.
-    const octokit = new github.GitHub(githubPat);
+    const octokit = new github.GitHub(githubToken);
 
     // Get Check Run Id
     var check_run_id = await getCheckRunId(octokit);
