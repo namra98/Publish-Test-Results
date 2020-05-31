@@ -1,6 +1,6 @@
 const core = require('@actions/core')
 const github = require('@actions/github')
-var request = require('request');
+var request = require('request-promise');
 
 
 function getTestRun(secret) {
@@ -83,14 +83,14 @@ async function getCheckRunId(octokit) {
   return check_run_id;
 }
 
-function getTcmToken() {
+async function getTcmToken() {
   var body = {
     repository: {
       name: github.context.repo.repo
     }
   }
 
-  return request({
+  var req = await request({
     url: `http://localhost:3000/token`,
     method: "POST",
     json: true,
@@ -107,6 +107,9 @@ function getTcmToken() {
   }
   );
   
+  console.log(req);
+
+  return req;
 }
 
 async function run() {
@@ -118,7 +121,7 @@ async function run() {
     const githubPat = core.getInput('github-pat');
 
     // Get token for Org bt calling GitHub App.
-    const TcmToken = getTcmToken();
+    const TcmToken = await getTcmToken();
     console.log(TcmToken);
     // Get the octokit client.
     const octokit = new github.GitHub(githubToken);
