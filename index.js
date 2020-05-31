@@ -90,7 +90,7 @@ function getTcmToken() {
     }
   }
 
-  request({
+  return request({
     url: `http://localhost:3000/token`,
     method: "POST",
     json: true,
@@ -118,8 +118,8 @@ async function run() {
     const githubPat = core.getInput('github-pat');
 
     // Get token for Org bt calling GitHub App.
-    const TcmToken = await getTcmToken();
-
+    const TcmToken = getTcmToken();
+    console.log(TcmToken);
     // Get the octokit client.
     const octokit = new github.GitHub(githubToken);
 
