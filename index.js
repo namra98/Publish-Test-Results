@@ -166,8 +166,8 @@ async function Publish(filepath, secret, check_run_id) {
           jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['testName']
         );
 
-        var resurl = `https://tcman.codedev.ms/${github.context.repo.repo}/_apis/test/runs/${testRunId}/results?api-version=1.0`;
-        console.log(resurl);
+        
+        console.log(testResult);
         // Publish Test result.
         var testResultResponse = await request({
           url: `https://tcman.codedev.ms/${github.context.repo.repo}/_apis/test/runs/${testRunId}/results?api-version=1.0`,
