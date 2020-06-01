@@ -66,7 +66,7 @@ class TestResult {
 }
 
 
-function Publish(filepath, secret, check_run_id) {
+async function Publish(filepath, secret, check_run_id) {
 
   const xml = fs.readFileSync(filepath, 'utf8');
   const jsonData = JSON.parse(convert.xml2json(xml, { compact: true, spaces: 2 }));
@@ -252,7 +252,7 @@ async function run() {
     var check_run_id = await getCheckRunId(octokit);
 
     // Get Test Run using Token.
-    var testRun = Publish(filepath, TcmToken, check_run_id);
+    var testRun = await Publish(filepath, TcmToken, check_run_id);
     console.log(`Test Run ${testRun}`);
 
   } catch (error) {
