@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0c216044-2be1-4502-811f-5b464b69c695" name="t-napra@NAMRA-PC 2020-05-31 15:24:29" runUser="FAREAST\t-napra" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2020-05-31T15:24:29.8930208+05:30" queuing="2020-05-31T15:24:29.8930222+05:30" start="2020-05-31T15:24:29.1716889+05:30" finish="2020-05-31T15:24:29.9055691+05:30" />
+  <TestSettings name="default" id="f2e5b546-b1cc-4c60-b987-b99542f27c1a">
+    <Deployment runDeploymentRoot="t-napra_NAMRA-PC_2020-05-31_15_24_29" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f98effcb-9066-432f-a156-adcea62f39ee" testId="8a58145f-4075-10ca-1fd1-271205faa745" testName="SumTest" computerName="NAMRA-PC" duration="00:00:00.0055893" startTime="2020-05-31T15:24:29.7005750+05:30" endTime="2020-05-31T15:24:29.7334529+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f98effcb-9066-432f-a156-adcea62f39ee" />
+    <UnitTestResult executionId="7d7938e0-c70c-4d1c-aeda-4ea411d7b566" testId="0fb43290-4e04-4142-9bed-086316e3eaba" testName="MultiplyTestFail" computerName="NAMRA-PC" duration="00:00:00.0218724" startTime="2020-05-31T15:24:29.7429885+05:30" endTime="2020-05-31T15:24:29.7651124+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7d7938e0-c70c-4d1c-aeda-4ea411d7b566">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.AreEqual failed. Expected:&lt;99&gt;. Actual:&lt;50&gt;. </Message>
+          <StackTrace>at UnitTestProject1.UnitTest1.MultiplyTestFail() in C:\Users\t-napra\source\repos\Calculator\UnitTestProject5\UnitTest1.cs:line 31&#xD;</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b6679888-9f80-4155-aa0a-fe288dca727e" testId="1ab75fec-c1df-b279-3e43-92a88aa8cf5f" testName="MultiplyTestPass" computerName="NAMRA-PC" duration="00:00:00.0001245" startTime="2020-05-31T15:24:29.7427298+05:30" endTime="2020-05-31T15:24:29.7429691+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6679888-9f80-4155-aa0a-fe288dca727e" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="MultiplyTestPass" storage="c:\users\t-napra\source\repos\calculator\unittestproject5\bin\debug\netcoreapp2.1\unittestproject5.dll" id="1ab75fec-c1df-b279-3e43-92a88aa8cf5f">
+      <Execution id="b6679888-9f80-4155-aa0a-fe288dca727e" />
+      <TestMethod codeBase="C:\Users\t-napra\source\repos\Calculator\UnitTestProject5\bin\Debug\netcoreapp2.1\UnitTestProject5.dll" adapterTypeName="executor://mstestadapter/v2" className="UnitTestProject1.UnitTest1" name="MultiplyTestPass" />
+    </UnitTest>
+    <UnitTest name="SumTest" storage="c:\users\t-napra\source\repos\calculator\unittestproject5\bin\debug\netcoreapp2.1\unittestproject5.dll" id="8a58145f-4075-10ca-1fd1-271205faa745">
+      <Execution id="f98effcb-9066-432f-a156-adcea62f39ee" />
+      <TestMethod codeBase="C:\Users\t-napra\source\repos\Calculator\UnitTestProject5\bin\Debug\netcoreapp2.1\UnitTestProject5.dll" adapterTypeName="executor://mstestadapter/v2" className="UnitTestProject1.UnitTest1" name="SumTest" />
+    </UnitTest>
+    <UnitTest name="MultiplyTestFail" storage="c:\users\t-napra\source\repos\calculator\unittestproject5\bin\debug\netcoreapp2.1\unittestproject5.dll" id="0fb43290-4e04-4142-9bed-086316e3eaba">
+      <Execution id="7d7938e0-c70c-4d1c-aeda-4ea411d7b566" />
+      <TestMethod codeBase="C:\Users\t-napra\source\repos\Calculator\UnitTestProject5\bin\Debug\netcoreapp2.1\UnitTestProject5.dll" adapterTypeName="executor://mstestadapter/v2" className="UnitTestProject1.UnitTest1" name="MultiplyTestFail" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8a58145f-4075-10ca-1fd1-271205faa745" executionId="f98effcb-9066-432f-a156-adcea62f39ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0fb43290-4e04-4142-9bed-086316e3eaba" executionId="7d7938e0-c70c-4d1c-aeda-4ea411d7b566" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1ab75fec-c1df-b279-3e43-92a88aa8cf5f" executionId="b6679888-9f80-4155-aa0a-fe288dca727e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="2" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+</TestRun>
