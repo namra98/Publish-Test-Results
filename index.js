@@ -137,7 +137,7 @@ async function Publish(filepath, secret, check_run_id) {
       for (var result in jsonData[obj]['Results']['UnitTestResult']) {
 
         // Create Test Results.
-        var testResult = new TestResult(testRunId.to_s,
+        var testResult = new TestResult(testRunId,
           "1",
           "1",
           "1",
