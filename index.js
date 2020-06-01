@@ -151,7 +151,7 @@ async function Publish(filepath, secret, check_run_id) {
           jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['endTime'],
           'e683309b-8302-411a-92ec-abeff69258a2',
           "e683309b-8302-411a-92ec-abeff69258a2",
-          jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['duration'],
+          "1",
           jsonData[obj]['TestSettings']['_attributes']['name'],
           "0",
           "0",
@@ -220,17 +220,14 @@ async function getTcmToken() {
     body: body
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log("done", body);
       return body;
     }
     else {
-      console.log("Error", body);
+      console.log("Error : ", response);
       return body;
     }
   }
   );
-
-  console.log(req);
 
   return req;
 }
@@ -249,7 +246,7 @@ async function run() {
     var filepath = core.getInput('filepath');
     // Get token for Org bt calling GitHub App.
     const TcmToken = await getTcmToken();
-    console.log(TcmToken);
+    
     // Get the octokit client.
     const octokit = new github.GitHub(githubToken);
 
