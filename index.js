@@ -70,7 +70,9 @@ async function Publish(filepath, secret, check_run_id) {
 
   const xml = fs.readFileSync(filepath, 'utf8');
   const jsonData = JSON.parse(xmljs.xml2json(xml, { compact: true, spaces: 2 }));
-
+  
+  console.log(jsonData);
+  
   for (var obj in jsonData) {
     if (obj == 'TestRun') {
       // Summary of TestRun.
