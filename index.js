@@ -35,11 +35,12 @@ class TestRun {
 
 
 class TestResult {
-  constructor(TestRunId, TestCaseRefId, TestResultId, TestCaseId, CreationDate, LastUpdated, LastUpdatedBy, LastUpdateBy, Outcome, State, Revision, DateStarted, DateCompleted, Owner, RunBy, Duration, ComputerName, FailureType, ResolutionStateId, ResetCount, Comment, StackTrace, ErrorMessage, AfnStripId, RV, AutomatedTestName) {
+  constructor(TestRunId, TestCaseRefId, TestResultId, TestCaseId, TestCaseTitle, CreationDate, LastUpdated, LastUpdatedBy, LastUpdateBy, Outcome, State, Revision, DateStarted, DateCompleted, Owner, RunBy, Duration, ComputerName, FailureType, ResolutionStateId, ResetCount, Comment, StackTrace, ErrorMessage, AfnStripId, RV, AutomatedTestName) {
     this.TestRunId = TestRunId;
     this.TestCaseRefId = TestCaseRefId;
     this.TestResultId = TestResultId;
     this.TestCaseId = TestCaseId;
+    this.TestCaseTitle = TestCaseTitle;
     this.CreationDate = CreationDate;
     this.LastUpdated = LastUpdated;
     this.LastUpdatedBy = LastUpdatedBy;
@@ -140,6 +141,7 @@ async function Publish(filepath, secret, check_run_id) {
           "1",
           "1",
           "1",
+          jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['testName'],
           jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['startTime'],
           jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['startTime'],
           'e683309b-8302-411a-92ec-abeff69258a2',
