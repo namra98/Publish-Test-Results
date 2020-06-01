@@ -129,9 +129,10 @@ async function Publish(filepath, secret, check_run_id) {
 
       console.log("testRunResponse : ",testRunResponse);
 
-      var testRunId = "1";
+      var testRunId = testRunResponse.testRunId;
 
-      // console.log(jsonData[obj]['Results']);
+      console.log("testRunId : ", testRunId);
+      
       for (var result in jsonData[obj]['Results']['UnitTestResult']) {
 
         // Create Test Results.
@@ -163,12 +164,14 @@ async function Publish(filepath, secret, check_run_id) {
           jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['testName']
         );
 
+        var resurl = `https://tcman.codedev.ms/${github.context.repo.repo}/_apis/test/runs/#${testRunId}/results?api-version=1.0`;
+        console.log(resurl);
         // Publish Test result.
         var testResultResponse = await request({
           url: `https://tcman.codedev.ms/${github.context.repo.repo}/_apis/test/runs/#${testRunId}/results?api-version=1.0`,
           method: "POST",
           headers: {
-            'Authorization': 'Bearer ' + secret,
+            'Authorization': 'Bearer ' + secret
           },
           json: true,
           body: testResult
