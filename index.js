@@ -71,7 +71,9 @@ async function Publish(filepath, secret, check_run_id) {
   const xml = fs.readFileSync(filepath, 'utf8');
   const jsonData = JSON.parse(xmljs.xml2json(xml, { compact: true, spaces: 2 }));
   
+  console.log(filepath);
   console.log(jsonData);
+
   
   for (var obj in jsonData) {
     if (obj == 'TestRun') {
@@ -80,8 +82,8 @@ async function Publish(filepath, secret, check_run_id) {
 
       // Create Test run object and send it to Tcm.
       var testRun = new TestRun(
-        "1",
         check_run_id,
+        "1",
         jsonData[obj]['TestSettings']['_attributes']['name'],
         "2019-07-01T04-00-00.000Z",
         jsonData[obj]['_attributes']['runUser'],
