@@ -1,14 +1,11 @@
 name: 'Publish Test Results'
 description: 'Publish Test Results file to Actions.'
 inputs:
-  ptr-secret: # id of input
-    description: 'secret set by Github App'
+  filepath: # id of input
+    description: 'Test Result XML file path.'
     required: true
   github-secret: # id of input
     description: 'Github Secret'
-    required: true
-  github-pat: 
-    description: 'Github PAT'
     required: true
 outputs:
   time: # id of output
