@@ -116,16 +116,14 @@ async function Publish(filepath, secret, check_run_id) {
       }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           console.log("No Error", body);
-          return body;
         }
         else {
           console.log("Error", body);
-          return body;
         }
       }
       );
 
-      console.log(testRunResponse);
+      console.log("testRunResponse : ",testRunResponse);
 
       var testRunId = "1";
 
