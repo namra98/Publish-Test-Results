@@ -135,22 +135,28 @@ async function Publish(filepath, secret, check_run_id) {
       console.log("testRunId : ", testRunId);
       
       for (var result in jsonData[obj]['Results']['UnitTestResult']) {
+        console.log("Working : 2012-01-05 00:00:00.000");
+        console.log("Old : ", jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['startTime']);
+        console.log("New : ", new Date(jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['startTime']).toISOString());
 
         // Create Test Results.
-        var testResult = new TestResult(testRunId,
+        var testResult = new TestResult(
+          testRunId,
           "1",
           "1",
           "1",
           jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['testName'],
-          jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['startTime'],
-          jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['startTime'],
+          new Date(jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['startTime']).toISOString(),
+          new Date(jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['startTime']).toISOString(),
           "e683309b-8302-411a-92ec-abeff69258a2",
           "e683309b-8302-411a-92ec-abeff69258a2",
           jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['outcome'] === 'Passed' ? "0" : "1",
           "1",
           "1",
-          jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['startTime'],
-          jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['endTime'],
+          // jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['startTime'],
+          // jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['endTime'],
+          "2012-01-05 00:00:00.000",
+          "2012-01-05 00:00:00.000",
           'e683309b-8302-411a-92ec-abeff69258a2',
           "e683309b-8302-411a-92ec-abeff69258a2",
           "1",
