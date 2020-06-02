@@ -154,7 +154,7 @@ async function Publish(filepath, secret, check_run_id) {
           "1",
           "1",
           new Date(jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['startTime']).toISOString(),
-          new Date(jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['endtime']).toISOString(),
+          new Date(jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['endTime']).toISOString(),
           'e683309b-8302-411a-92ec-abeff69258a2',
           "e683309b-8302-411a-92ec-abeff69258a2",
           "1",
