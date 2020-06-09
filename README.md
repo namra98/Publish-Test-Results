@@ -1,3 +1,3 @@
 # Publish-Test-Results
 
-Publishes Test Results to Actions.
+Publishes Test Results to GitHub Actions.

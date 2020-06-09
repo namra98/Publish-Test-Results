@@ -3,6 +3,9 @@ const github = require('@actions/github')
 const request = require('request-promise');
 const xmljs = require('xml-js');
 const fs = require('fs');
+const crypto = require('crypto')
+require('dotenv').config();
+
 
 class TestRun {
   constructor(RunId, State, Title, LastUpdated, Owner, IncompleteTests, IterationId, DropLocation, ErrorMessage, StartDate, CompleteDate, Controller, PostProcessState, Revision, LastUpdatedBy, Type, TestEnvironmentId, Version, Comment, TotalTests, PassedTests, NotApplicableTests, UnanalyzedTests, CreationDate) {
@@ -69,13 +72,14 @@ class TestResult {
 
 async function Publish(filepath, secret, check_run_id) {
 
-  const xml = fs.readFileSync(filepath, 'utf8');
-  const jsonData = JSON.parse(xmljs.xml2json(xml, { compact: true, spaces: 2 }));
+  try {
+    const xml = fs.readFileSync(filepath, 'utf8');  
+    const jsonData = JSON.parse(xmljs.xml2json(xml, { compact: true, spaces: 2 }));
+  } catch (error) {
+    console.log(`Error : ${error}`);
+  }
   
-  console.log(filepath);
-  console.log(jsonData);
 
-  
   for (var obj in jsonData) {
     if (obj == 'TestRun') {
       // Summary of TestRun.
@@ -128,8 +132,6 @@ async function Publish(filepath, secret, check_run_id) {
       }
       );
 
-      console.log("testRunResponse : ",testRunResponse);
-
       var testRunId = testRunResponse.testRunId;
 
       console.log("testRunId : ", testRunId);
@@ -167,8 +169,6 @@ async function Publish(filepath, secret, check_run_id) {
           jsonData[obj]['Results']['UnitTestResult'][result]['_attributes']['testName']
         );
 
-        
-        console.log(testResult);
         // Publish Test result.
         var testResultResponse = await request({
           url: `https://tcman.codedev.ms/${github.context.repo.repo}/_apis/test/runs/${testRunId}/results?api-version=1.0`,
@@ -212,13 +212,21 @@ async function getCheckRunId(octokit) {
 async function getTcmToken() {
   var body = {
     repository: {
-      name: github.context.repo.repo
+      name: "calculator-actions-pipeline"
     }
   }
 
+  hash = crypto.createHmac('sha1', process.env.GITHUB_WEBHOOK_SECRET)
+    .update(JSON.stringify(body))
+    .digest('hex')
+
+  // This is url of Our GitHub App's /token POST endpoint, which provides ORG token.
   var req = await request({
     url: `http://localhost:3000/token`,
     method: "POST",
+    headers: {
+      'X-HUB-Signature': 'sha1=' + hash,
+    },
     json: true,
     body: body
   }, function (error, response, body) {
@@ -235,18 +243,12 @@ async function getTcmToken() {
   return req;
 }
 
-async function parseXML(filepath) {
-  const testxml = fs.readFileSync(filepath, 'utf8');
-  const jsonData = JSON.parse(xmljs.xml2json(testxml, { compact: true, spaces: 2 }));
-  console.log(jsonData);
-
-}
-
 async function run() {
   try {
     // Read inputs
     var githubToken = core.getInput('github-secret');
     var filepath = core.getInput('filepath');
+
     // Get token for Org bt calling GitHub App.
     const TcmToken = await getTcmToken();
     
@@ -256,9 +258,8 @@ async function run() {
     // Get Check Run Id
     var check_run_id = await getCheckRunId(octokit);
 
-    // Get Test Run using Token.
+    // Parse and Publish Test data to Tcm serice.
     var testRun = await Publish(filepath, TcmToken, check_run_id);
-    console.log(`Test Run ${testRun}`);
 
   } catch (error) {
     core.setFailed(error.message);
