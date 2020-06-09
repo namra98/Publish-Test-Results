@@ -209,23 +209,24 @@ async function getCheckRunId(octokit) {
   return check_run_id;
 }
 
-async function getTcmToken() {
+async function getTcmToken(githubToken) {
   var body = {
     repository: {
-      name: "calculator-actions-pipeline"
+      name: github.context.repo.repo
     }
   }
 
-  hash = crypto.createHmac('sha1', process.env.GITHUB_WEBHOOK_SECRET)
-    .update(JSON.stringify(body))
-    .digest('hex')
+  // hash = crypto.createHmac('sha1', process.env.GITHUB_WEBHOOK_SECRET)
+  //   .update(JSON.stringify(body))
+  //   .digest('hex')
 
   // This is url of Our GitHub App's /token POST endpoint, which provides ORG token.
   var req = await request({
     url: `http://localhost:3000/token`,
     method: "POST",
     headers: {
-      'X-HUB-Signature': 'sha1=' + hash,
+      // 'X-HUB-Signature': 'sha1=' + hash,
+      'Authorization': githubToken,
     },
     json: true,
     body: body
@@ -250,7 +251,7 @@ async function run() {
     var filepath = core.getInput('filepath');
 
     // Get token for Org bt calling GitHub App.
-    const TcmToken = await getTcmToken();
+    const TcmToken = await getTcmToken(githubToken);
     
     // Get the octokit client.
     const octokit = new github.GitHub(githubToken);
