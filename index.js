@@ -261,10 +261,10 @@ async function run() {
     const str = "tok " + githubToken + "LOL";
     console.log(tok, str); 
     // Get Check Run Id
-    var check_run_id = await getCheckRunId(octokit);
+    // var check_run_id = await getCheckRunId(octokit);
 
     // Parse and Publish Test data to Tcm serice.
-    var testRun = await Publish(filepath, TcmToken, check_run_id);
+    // var testRun = await Publish(filepath, TcmToken, check_run_id);
 
   } catch (error) {
     core.setFailed(error.message);
