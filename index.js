@@ -71,12 +71,13 @@ class TestResult {
 
 
 async function Publish(filepath, secret, check_run_id) {
-
+  var jsonData;
   try {
     const xml = fs.readFileSync(filepath, 'utf8');  
-    const jsonData = JSON.parse(xmljs.xml2json(xml, { compact: true, spaces: 2 }));
+    jsonData = JSON.parse(xmljs.xml2json(xml, { compact: true, spaces: 2 }));
   } catch (error) {
     console.log(`Error : ${error}`);
+    return;
   }
   
 
