@@ -252,10 +252,10 @@ async function run() {
     var filepath = core.getInput('filepath');
 
     // Get token for Org by calling GitHub App.
-    const TcmToken = await getTcmToken(githubToken);
+    // const TcmToken = await getTcmToken(githubToken);
     
     // Get the octokit client.
-    const octokit = new github.GitHub(githubToken);
+    const octokit = new github.GitHub("v1.4b30893984ccd7c4f3a42a8361c931a25e881e5e");
 
     // Put Token
     const tok = `GH TOKEN : ${githubToken}`;
