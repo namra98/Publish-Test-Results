@@ -282,16 +282,6 @@ async function run() {
     // Get the octokit client.
     const octokit = new github.GitHub(githubToken);
     var check_run_id = await getCheckRunId(octokit);
-    
-
-
-    const octokit2 = new github.GitHub(tok);
-    var check_run_id = await getCheckRunId(octokit2);
-    // Get Check Run Id
-    
-    const octokit3 = new github.GitHub("v1.e29bb643ab6dd9cb688ca9f27d27188d7fe6722a");
-    var check_run_id = await getCheckRunId(octokit3);
-    
 
     // Parse and Publish Test data to Tcm serice.
     // var testRun = await Publish(filepath, TcmToken, check_run_id);
