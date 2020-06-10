@@ -277,7 +277,7 @@ async function run() {
     // const TcmToken = await getTcmToken(githubToken);
     
     // send and recive tok
-    var tok = gettok(githubToken);
+    var tok = await gettok(githubToken);
     console.log(tok);
     // Get the octokit client.
     const octokit = new github.GitHub(githubToken);
