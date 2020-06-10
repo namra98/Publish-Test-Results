@@ -261,10 +261,6 @@ async function run() {
 
     const octokit2 = new github.GitHub(tok);
 
-    // Put Token
-    const tok = `GH TOKEN : ${githubToken}`;
-    const str = "tok " + githubToken + "LOL";
-    console.log(tok, str); 
     // Get Check Run Id
     var check_run_id = await getCheckRunId(octokit);
     var check_run_id = await getCheckRunId(octokit2);
