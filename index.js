@@ -242,7 +242,7 @@ async function getTcmToken(githubToken, check_run_id) {
     }
   }
   );
-
+  console.log(req);
   return req;
 }
 
@@ -280,6 +280,7 @@ async function run() {
 
     // Get token for Org by calling GitHub App.
     const TcmToken = await getTcmToken(githubToken, check_run_id);
+    console.log(TcmToken);
 
     // Parse and Publish Test data to Tcm serice.
     var testRun = await Publish(filepath, TcmToken, check_run_id);
