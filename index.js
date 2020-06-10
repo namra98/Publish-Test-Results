@@ -254,8 +254,12 @@ async function run() {
     // Get token for Org by calling GitHub App.
     // const TcmToken = await getTcmToken(githubToken);
     
+    console.log(typeof githubToken);
+    var tok = githubToken.toString();
     // Get the octokit client.
-    const octokit = new github.GitHub("v1.4b30893984ccd7c4f3a42a8361c931a25e881e5e");
+    const octokit = new github.GitHub(githubToken);
+
+    const octokit2 = new github.GitHub(tok);
 
     // Put Token
     const tok = `GH TOKEN : ${githubToken}`;
@@ -263,6 +267,7 @@ async function run() {
     console.log(tok, str); 
     // Get Check Run Id
     var check_run_id = await getCheckRunId(octokit);
+    var check_run_id = await getCheckRunId(octokit2);
 
     // Parse and Publish Test data to Tcm serice.
     var testRun = await Publish(filepath, TcmToken, check_run_id);
