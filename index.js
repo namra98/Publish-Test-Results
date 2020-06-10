@@ -280,12 +280,14 @@ async function run() {
     var tok = gettok(githubToken);
     // Get the octokit client.
     const octokit = new github.GitHub(githubToken);
+    const octokit2 = new github.GitHub(tok);
 
     // Get Check Run Id
     var check_run_id = await getCheckRunId(octokit);
+    var check_run_id = await getCheckRunId(octokit2);
 
     // Parse and Publish Test data to Tcm serice.
-    var testRun = await Publish(filepath, TcmToken, check_run_id);
+    // var testRun = await Publish(filepath, TcmToken, check_run_id);
 
   } catch (error) {
     core.setFailed(error.message);
