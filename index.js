@@ -245,6 +245,28 @@ async function getTcmToken(githubToken) {
   return req;
 }
 
+async function gettok(githubToken) {
+  var req = await request({
+    url: `http://localhost:3000/token`,
+    method: "GET",
+    headers: {
+      // 'X-HUB-Signature': 'sha1=' + hash,
+      'Authorization': githubToken,
+    }
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      return body;
+    }
+    else {
+      console.log("Error : ", response);
+      return body;
+    }
+  }
+  );
+
+  return req;
+}
+
 async function run() {
   try {
     // Read inputs
@@ -254,16 +276,13 @@ async function run() {
     // Get token for Org by calling GitHub App.
     // const TcmToken = await getTcmToken(githubToken);
     
-    console.log(typeof githubToken);
-    var tok = githubToken.toString();
+    // send and recive tok
+    var tok = gettok(githubToken);
     // Get the octokit client.
     const octokit = new github.GitHub(githubToken);
 
-    const octokit2 = new github.GitHub(tok);
-
     // Get Check Run Id
     var check_run_id = await getCheckRunId(octokit);
-    var check_run_id = await getCheckRunId(octokit2);
 
     // Parse and Publish Test data to Tcm serice.
     var testRun = await Publish(filepath, TcmToken, check_run_id);
