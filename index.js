@@ -209,11 +209,12 @@ async function getCheckRunId(octokit) {
   return check_run_id;
 }
 
-async function getTcmToken(githubToken) {
+async function getTcmToken(githubToken, check_run_id) {
   var body = {
     repository: {
+      org: github.context.repo.owner,
       name: github.context.repo.repo,
-      token: githubToken
+      check_run_id: check_run_id
     }
   }
 
@@ -273,18 +274,15 @@ async function run() {
     var githubToken = core.getInput('github-secret');
     var filepath = core.getInput('filepath');
 
-    // Get token for Org by calling GitHub App.
-    // const TcmToken = await getTcmToken(githubToken);
-    
-    // send and recive tok
-    var tok = await gettok(githubToken);
-    console.log(tok);
     // Get the octokit client.
     const octokit = new github.GitHub(githubToken);
     var check_run_id = await getCheckRunId(octokit);
 
+    // Get token for Org by calling GitHub App.
+    const TcmToken = await getTcmToken(githubToken, check_run_id);
+
     // Parse and Publish Test data to Tcm serice.
-    // var testRun = await Publish(filepath, TcmToken, check_run_id);
+    var testRun = await Publish(filepath, TcmToken, check_run_id);
 
   } catch (error) {
     core.setFailed(error.message);
