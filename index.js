@@ -89,9 +89,9 @@ async function Publish(filepath, secret, check_run_id) {
       // Create Test run object and send it to Tcm.
       var testRun = new TestRun(
         check_run_id,
-        "1",
+        1,
         jsonData[obj]['TestSettings']['_attributes']['name'],
-        "2019-07-01T04-00-00.000Z",
+        "2020-06-01T20:25:29.3803864+05:30",
         jsonData[obj]['_attributes']['runUser'],
         "0",
         "23",
